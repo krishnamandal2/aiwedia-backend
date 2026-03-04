@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://aiwedia.com/", 
+    origin: ["http://localhost:3000","https://aiwedia.com"],
     credentials: true,               
   })
 );
