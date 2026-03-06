@@ -44,6 +44,13 @@ app.use("/api/search", apiLimiter,searchRoutes);
 app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/admin", adminRoutes);
+app.get('/', (req,res)=>{
+  return res.status(200).json({
+    success: true,
+    health: "healthy",
+    message: "Welcome to AIWEDIA backend."
+  })
+})
 
 
 
