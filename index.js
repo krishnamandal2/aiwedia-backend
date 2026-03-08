@@ -17,12 +17,9 @@ connectDB();
 
 const app = express();
 
-
-
-
 app.use(helmet());
 
-// 2️⃣ Body parser
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -36,24 +33,26 @@ app.use(
 );
 
 
-
-
 app.use("/api/categories",apiLimiter, categoryRoutes);
 app.use("/api/search", apiLimiter,searchRoutes);
 app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/admin", adminRoutes);
-app.get('/', (req,res)=>{
-  return res.status(200).json({
-    success: true,
-    health: "healthy",
-    message: "Welcome to AIWEDIA backend."
-  })
-})
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    msg: "Server is running properly in Ai Wedia",
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
+    timestamp: Date.now()
+  });
+});
 
 
 
 const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
