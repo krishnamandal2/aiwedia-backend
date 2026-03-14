@@ -10,13 +10,11 @@ const BlogSchema = new mongoose.Schema(
     date: { type: String, required: true },
     status: { type: String, default: "draft" },
 
-    content: [
-      {
-        _id: false, // ✅ disables _id inside content[]
-        text: { type: String, required: true },
-        image: { type: String },
-      },
-    ],
+    // store HTML from editor
+    content: {
+      type: String,
+      required: true,
+    },
   },
   {
     versionKey: false,

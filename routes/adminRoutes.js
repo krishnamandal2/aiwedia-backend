@@ -28,10 +28,9 @@ router.post("/login", async (req, res) => {
 
  res.cookie("token", token, {
   httpOnly: true,
-  secure: false,          // localhost only
-  sameSite: "lax",       // ✅ REQUIRED for cross-origin
-  path: "/",              // ✅ REQUIRED
-
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
 });
 
 
@@ -43,11 +42,12 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    sameSite: "lax",
-  });
-
+ res.clearCookie("token", {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
+});
   res.json({ message: "Logged out" });
 });
 
